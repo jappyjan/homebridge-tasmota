@@ -1,0 +1,227 @@
+{
+  "pluginAlias": "Tasmota",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Please ensure that your Tasmota device has HASS Auto Discovey enabled ( setOption19 1 )",
+  "footerDisplay": "For further details please see the [README](https://github.com/NorthernMan54/homebridge-tasmota/blob/master/README.md). To manage your Tasmota devices [click here](http://tasui.shantur.com/#/findDevices)",
+  "schema": {
+    "type": "object",
+    "properties": {
+
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "required": true,
+        "default": "Tasmota",
+        "description": "Plugin name as displayed in the Homebridge log"
+      },
+      "mqttHost": {
+        "title": "Mqtt Host Address",
+        "type": "string",
+        "required": true,
+        "default": "mqtt.local",
+        "description": "This is the name / ip address for your MQTT Server."
+      },
+      "mqttUsername": {
+        "title": "Username",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "This is the Username for your MQTT Broker."
+      },
+      "mqttPassword": {
+        "title": "Password",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "This is the Password for your MQTT Broker."
+      },
+      "cleanup": {
+        "title": "Disconnected Device Cleanup Timing",
+        "type": "number",
+        "required": false,
+        "default": 24,
+        "description": "Cleanup of devices no longer connected too or responding on the network.  Time is in hours, defaults to 1 Day."
+      },
+      "debug": {
+        "title": "Debug Logging",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Enable verbose DEBUG logging."
+      },
+      "history": {
+        "title": "History logging of sensor and other data.",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Enable logging of historical sensor information."
+      },
+      "historyInterval": {
+        "title": "Update interval for historical data.",
+        "type": "number",
+        "required": false,
+        "default": 10,
+        "description": "Update interval for the logging of history data.  Time is in minutes, defaults to 10 minutes."
+      },
+      "filter": {
+        "title": "Filter device discovery topic",
+        "type": "string",
+        "required": false,
+        "default": "",
+        "description": "Regular expression to filter discovery topic messages against. ie \"F52066|00F861\" limit discovery to these two devices."
+      },
+      "effects": {
+        "title": "RGB Light Effects",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Enable ability to select RGB light effects.  Requires adding an additional accessory/UI widget for each RGB light."
+      },
+      "tv-ir-remotes": {
+        "type": "array",
+        "items": {
+          "title": "IR Remotes",
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "required": true,
+              "default": "TV"
+            },
+            "identifier": {
+              "title": "Tasmota Identifier",
+              "description": "default: last 3 Parts of MAC, no colons",
+              "type": "string",
+              "required": true
+            },
+            "manufacturer": {
+              "title": "TV Manufacturer",
+              "type": "string",
+              "required": false
+            },
+            "model": {
+              "title": "TV Model",
+              "type": "string",
+              "required": false
+            },
+            "serial": {
+              "title": "TV Serial",
+              "type": "string",
+              "required": false
+            },
+            "codeType": {
+              "type": "string",
+              "title": "IR Code Type",
+              "required": true,
+              "default": "SAMSUNG"
+            },
+            "codes": {
+              "required": true,
+              "title": "IR-Codes",
+              "type": "object",
+              "properties": {
+                "power": {
+                  "title": "Power Toggle",
+                  "type": "string",
+                  "required": true,
+                  "default": "0xE0E040BF"
+                },
+                "volume": {
+                  "title": "Speaker",
+                  "type": "object",
+                  "properties": {
+                    "up": {
+                      "title": "Volume Up",
+                      "type": "string",
+                      "required": true,
+                      "default": "0xE0E0E01F"
+                    },
+                    "down": {
+                      "title": "Volume Down",
+                      "type": "string",
+                      "required": true,
+                      "default": "0xE0E0D02F"
+                    }
+                  }
+                },
+                "keys": {
+                  "title": "Keys",
+                  "type": "object",
+                  "properties": {
+                    "REWIND": {
+                      "title": "Rewind",
+                      "type": "string",
+                      "required": false
+                    },
+                    "FAST_FORWARD": {
+                      "title": "Fast Forward",
+                      "type": "string",
+                      "required": false
+                    },
+                    "NEXT_TRACK": {
+                      "title": "Next Track",
+                      "type": "string",
+                      "required": false
+                    },
+                    "PREVIOUS_TRACK": {
+                      "title": "Previous Track",
+                      "type": "string",
+                      "required": false
+                    },
+                    "ARROW_UP": {
+                      "title": "Arrow Up",
+                      "type": "string",
+                      "required": false
+                    },
+                    "ARROW_DOWN": {
+                      "title": "Arrow Down",
+                      "type": "string",
+                      "required": false
+                    },
+                    "ARROW_LEFT": {
+                      "title": "Arrow Left",
+                      "type": "string",
+                      "required": false
+                    },
+                    "ARROW_RIGHT": {
+                      "title": "Arrow Right",
+                      "type": "string",
+                      "required": false
+                    },
+                    "SELECT": {
+                      "title": "Select",
+                      "type": "string",
+                      "required": false
+                    },
+                    "BACK": {
+                      "title": "Back",
+                      "type": "string",
+                      "required": false
+                    },
+                    "EXIT": {
+                      "title": "Exit",
+                      "type": "string",
+                      "required": false
+                    },
+                    "PLAY_PAUSE": {
+                      "title": "Play Pause",
+                      "type": "string",
+                      "required": false
+                    },
+                    "INFORMATION": {
+                      "title": "Information",
+                      "type": "string",
+                      "required": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
