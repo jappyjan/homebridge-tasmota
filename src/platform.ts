@@ -1,11 +1,11 @@
 import {
-    API,
-    Characteristic,
-    CharacteristicSetCallback,
-    DynamicPlatformPlugin,
-    Logger,
-    PlatformAccessory,
-    Service,
+  API,
+  Characteristic,
+  CharacteristicSetCallback,
+  DynamicPlatformPlugin,
+  Logger,
+  PlatformAccessory,
+  Service,
 } from 'homebridge';
 
 import {PLATFORM_NAME, PLUGIN_NAME} from './settings';
@@ -62,27 +62,27 @@ export class tasmotaPlatform implements DynamicPlatformPlugin {
         public readonly config: any,
         public readonly api: API,
     ) {
-        this.log.debug('Finished initializing platform:', this.config.name);
+      this.log.debug('Finished initializing platform:', this.config.name);
 
-        this.cleanup = this.config['cleanup'] || 24; // Default removal of defunct devices after 24 hours
-        this.debug = this.config['debug'] || false;
-        this.teleperiod = this.config['teleperiod'] || 300;
+      this.cleanup = this.config['cleanup'] || 24; // Default removal of defunct devices after 24 hours
+      this.debug = this.config['debug'] || false;
+      this.teleperiod = this.config['teleperiod'] || 300;
 
-        if (this.debug) {
+      if (this.debug) {
 
-            let namespaces = debugEnable.disable();
+        let namespaces = debugEnable.disable();
 
-            // this.log("DEBUG-1", namespaces);
-            if (namespaces) {
-                namespaces = namespaces + ',Tasmota*';
-            } else {
-                namespaces = 'Tasmota*';
-            }
-            // this.log("DEBUG-2", namespaces);
-            debugEnable.enable(namespaces);
+        // this.log("DEBUG-1", namespaces);
+        if (namespaces) {
+          namespaces = namespaces + ',Tasmota*';
+        } else {
+          namespaces = 'Tasmota*';
         }
+        // this.log("DEBUG-2", namespaces);
+        debugEnable.enable(namespaces);
+      }
 
-        /* eslint-disable */
+      /* eslint-disable */
         this.CustomCharacteristic = require('./lib/CustomCharacteristics')(this.Service, this.Characteristic);
 
         // When this event is fired it means Homebridge has restored all cached accessories from disk.
@@ -303,6 +303,7 @@ export class tasmotaPlatform implements DynamicPlatformPlugin {
                     } else {
                         // the accessory does not yet exist, so we need to create it
                         this.log.info('Adding new accessory:', message.name, message);
+                        this.log.info('identifier', identifier);
 
                         // create a new accessory
                         const accessory = new this.api.platformAccessory(message.name, uuid);
