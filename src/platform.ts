@@ -315,8 +315,8 @@ export class tasmotaPlatform implements DynamicPlatformPlugin {
                         accessory.context.mqttHost = mqttHost;
                         accessory.context.identifier = identifier;
 
-                        if (!this.config['ir-remotes'] || !Array.isArray(this.config['ir-remotes'])) {
-                            this.config['ir-remotes'] = [];
+                        if (!this.config['tv-ir-remotes'] || !Array.isArray(this.config['tv-ir-remotes'])) {
+                            this.config['tv-ir-remotes'] = [];
                         }
 
                         // create the accessory handler for the newly create accessory
@@ -351,6 +351,7 @@ export class tasmotaPlatform implements DynamicPlatformPlugin {
                                 break;
                             case 'sensor':
                                 const irConfig = this.config['tv-ir-remotes'].find(c => c.identifier === identifier);
+                                this.log.info('irconfig for sensor device', irConfig);
                                 if (irConfig) {
                                     this.services[uniq_id] = new tasmotaIrTvRemoteService(this, accessory, uniq_id);
                                 } else {
